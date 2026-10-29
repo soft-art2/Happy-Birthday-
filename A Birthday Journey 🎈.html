@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Birthday Journey 🎈</title>
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff4ea;--card:#fff;--line:#ffd3e2;--text:#5a2448;--soft:#8c5b78;--gold:#f59e0b;--pink:#ff5c93}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;padding:0 14px 40px;font-family:Georgia,'Times New Roman',serif;color:var(--text);background:radial-gradient(900px 600px at 0 0,#ffe0ee,transparent 60%),radial-gradient(900px 600px at 100% 100%,#d9f1ff,transparent 60%),radial-gradient(700px 500px at 100% 0,#fff0b8,transparent 60%),var(--bg);background-attachment:fixed;overflow-x:hidden}
+canvas#c{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.flags{display:flex;justify-content:center;gap:6px;padding:18px 0 4px;position:relative;z-index:2}
+.flags i{width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:34px solid var(--c);filter:drop-shadow(0 3px 2px #0001)}
+section{max-width:460px;margin:22px auto;padding:54px 22px 46px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;position:relative;background:#ffffffd9;border:2px solid #fff;border-radius:34px;box-shadow:0 16px 40px #e8467c22,0 0 0 6px #ffffff66}
+section::before{content:attr(data-n);position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ff8fb8,#ffb86b);color:#fff;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:999px;box-shadow:0 6px 14px #ff5c9355;white-space:nowrap}
+#hero{min-height:70vh;background:linear-gradient(160deg,#fff,#ffe9f2 60%,#fff3d6)}
+h1,h2{margin:0;font-weight:400;letter-spacing:.02em}
+h1{font-size:clamp(2.3rem,10vw,3.6rem)}h2{font-size:clamp(1.5rem,6.5vw,2.1rem)}
+em{color:var(--pink);font-style:italic}
+p{margin:0;color:var(--soft);line-height:1.6;max-width:32ch}
+button{font:inherit;font-size:1.05rem;padding:13px 28px;border:0;border-radius:999px;color:#fff;background:linear-gradient(135deg,#ff6f9f,#ff9e5e);box-shadow:0 8px 20px #ff5c9355;cursor:pointer}
+button:active{transform:scale(.97)}
+.rev{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}.rev.in{opacity:1;transform:none}
+.star{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--sc,#ff9ec4);opacity:.5;animation:tw 3s infinite;z-index:0}
+@keyframes tw{50%{opacity:.1;transform:scale(.6)}}
+.balloon{position:fixed;bottom:-80px;font-size:2.6rem;animation:rise linear forwards;z-index:1;pointer-events:none}
+@keyframes rise{to{transform:translateY(-120vh) rotate(12deg)}}
+.arrow{position:absolute;bottom:14px;font-size:1.6rem;animation:bob 1.6s infinite;color:var(--pink)}
+@keyframes bob{50%{transform:translateY(8px)}}
+.cake{width:220px;height:230px;position:relative;margin-top:26px}
+.tier{position:absolute;left:50%;transform:translateX(-50%);border-radius:14px 14px 10px 10px;box-shadow:0 6px 12px #e8467c22}
+.t1{width:200px;height:70px;bottom:0;background:linear-gradient(#ff9ec4,#e0457b)}
+.t2{width:150px;height:60px;bottom:70px;background:linear-gradient(#ffd6e7,#ff8fba)}
+.t3{width:100px;height:50px;bottom:130px;background:linear-gradient(#fff1c9,#ffd166)}
+.drip{position:absolute;top:0;left:0;right:0;height:14px;background:#fff;opacity:.9;border-radius:14px 14px 40% 40%}
+.candle{position:absolute;bottom:180px;left:50%;width:10px;height:42px;margin-left:-5px;background:repeating-linear-gradient(135deg,#fff 0 6px,#6cc4ff 6px 12px);border-radius:3px}
+.flame{position:absolute;bottom:224px;left:50%;margin-left:-9px;width:18px;height:28px;background:radial-gradient(ellipse at 50% 70%,#fff,#ffd166 40%,#ff7a3d 80%);border-radius:50%/60% 60% 40% 40%;filter:drop-shadow(0 0 12px #ffb347);animation:fl .35s infinite alternate;cursor:pointer;transition:opacity .5s,transform .5s}
+.flame::before{content:"";position:absolute;inset:-22px}
+@keyframes fl{to{transform:scale(1.1,.94) rotate(3deg)}}
+.flame.out{opacity:0;transform:translateY(-10px) scale(.3);pointer-events:none}
+.wish{min-height:3em;color:var(--text);font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%}
+.fc{perspective:700px;height:190px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.fc.flip .fi{transform:rotateY(180deg)}
+.fc div.f,.fc div.b{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;align-items:center;justify-content:center;padding:12px;font-size:.84rem;line-height:1.35}
+.f{font-size:2rem!important;border:2px solid #fff;box-shadow:0 6px 14px #e8467c1f}
+.fc:nth-child(4n+1) .f{background:#ffe3ee}.fc:nth-child(4n+2) .f{background:#fff0c2}.fc:nth-child(4n+3) .f{background:#d9f1ff}.fc:nth-child(4n) .f{background:#e6e0ff}
+.b{font-size:.8rem!important;background:linear-gradient(135deg,#ff7aa8,#ffa45e);color:#fff;transform:rotateY(180deg)}
+.coupon{width:100%;min-height:120px;border:2px dashed #ff9e5e;border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:linear-gradient(135deg,#fff7df,#ffe6ef);transition:transform .4s;position:relative}
+.coupon.pop{transform:rotate(-2deg) scale(1.05)}
+#arena{position:relative;width:100%;height:340px;border:2px solid var(--line);border-radius:22px;background:linear-gradient(#fff0f6,#eaf6ff);overflow:hidden;touch-action:manipulation}
+.h{position:absolute;top:-40px;font-size:2rem;user-select:none;cursor:pointer;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(400px)}}
+.bar{display:flex;gap:22px;font-size:1.05rem}
+.env{width:100%;cursor:pointer;position:relative}
+.env .top{height:140px;background:linear-gradient(135deg,#ffb3cf,#ff8fb8);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:0 12px 26px #e8467c44}
+.letter{max-height:0;overflow:hidden;opacity:0;transition:max-height 1.4s,opacity 1.2s;background:repeating-linear-gradient(#fffdf7 0 31px,#f6dfe8 31px 32px);color:#4a2340;border:2px solid #ffd3e2;border-radius:16px;text-align:left;line-height:1.7;font-size:1.05rem}
+.letter.open{max-height:4000px;opacity:1;margin-top:14px}
+.letter div{padding:22px}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="flags"><i style="--c:#ff7aa8"></i><i style="--c:#ffd166"></i><i style="--c:#6cc4ff"></i><i style="--c:#b69cff"></i><i style="--c:#7bd88f"></i><i style="--c:#ff9e5e"></i><i style="--c:#ff7aa8"></i></div>
+<section id="hero" data-n="Happy Birthday">
+  <div style="font-size:3.2rem">🎈</div>
+  <h1 class="rev">Happy Birthday,<br><em id="nm"></em></h1>
+  <p class="rev" id="sub"></p>
+  <button class="rev" onclick="go('s2')">Start your surprise</button>
+  <div class="arrow">⌄</div>
+</section>
+
+<section id="s2" data-n="1 · Wish">
+  <h2 class="rev">First, make a wish</h2>
+  <p class="rev">Tap the flame, close your eyes, and think of something big.</p>
+  <div class="cake rev">
+    <div class="candle"></div><div class="flame" id="flame"></div>
+    <div class="tier t3"><div class="drip"></div></div>
+    <div class="tier t2"><div class="drip"></div></div>
+    <div class="tier t1"><div class="drip"></div></div>
+  </div>
+  <div class="wish" id="wish"></div>
+</section>
+
+<section id="s3" data-n="2 · Reasons">
+  <h2 class="rev">8 reasons you’re <em>amazing</em></h2>
+  <p class="rev">Tap each card to flip it.</p>
+  <div class="grid rev" id="grid"></div>
+</section>
+
+<section id="s4" data-n="3 · Coupons">
+  <h2 class="rev">Your birthday coupons 🎟️</h2>
+  <p class="rev">Tap to pull one. Each one is valid, no expiry date.</p>
+  <div class="coupon rev" id="coupon">?</div>
+  <button class="rev" id="pull">Pull a coupon</button>
+</section>
+
+<section id="s5" data-n="4 · Game">
+  <h2 class="rev">Catch the hearts 💗</h2>
+  <p class="rev">20 seconds. Tap as many as you can.</p>
+  <div class="bar rev"><span>Score: <b id="sc">0</b></span><span>Time: <b id="tm">20</b></span></div>
+  <div id="arena" class="rev"></div>
+  <button class="rev" id="start">Start</button>
+  <p id="gmsg" style="min-height:2.4em"></p>
+</section>
+
+<section id="s6" data-n="5 · Letter">
+  <h2 class="rev">One last thing</h2>
+  <p class="rev">There’s a letter for you. Tap the envelope.</p>
+  <div class="env rev" id="env">
+    <div class="top" id="etop">💌</div>
+    <div class="letter" id="letter"><div id="ltxt"></div></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var dpr=window.devicePixelRatio||1;
+  var raw=decodeURIComponent((location.hash||'').replace('#','')).replace(/[_\-.~]+/g,' ').trim();
+  var name='Handsome';
+  document.getElementById('nm').textContent=name;
+  document.getElementById('sub').textContent='For Muslim Uddin Babu, my Handsome. Scroll slowly, there\u2019s a lot inside.';
+
+  // stars
+  for(var i=0;i<45;i++){var s=document.createElement('div');s.className='star';s.style.setProperty('--sc',['#ff9ec4','#ffd166','#6cc4ff','#b69cff'][i%4]);s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';document.body.appendChild(s);}
+  // balloons
+  var bl=['🎈','🎈','💖','✨','🎉'];
+  function balloon(){var b=document.createElement('div');b.className='balloon';b.textContent=bl[Math.floor(Math.random()*bl.length)];b.style.left=Math.random()*92+'%';b.style.animationDuration=(7+Math.random()*6)+'s';document.body.appendChild(b);setTimeout(function(){b.remove()},14000);}
+  for(var k=0;k<6;k++)setTimeout(balloon,k*500);
+  var bt=setInterval(balloon,1800);setTimeout(function(){clearInterval(bt)},25000);
+
+  // reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.2});
+  document.querySelectorAll('.rev').forEach(function(e,i){e.style.transitionDelay=(i%4)*.12+'s';io.observe(e)});
+  window.go=function(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})};
+
+  // confetti
+  var c=document.getElementById('c'),x=c.getContext('2d'),parts=[],run=false;
+  function sz(){c.width=innerWidth*dpr;c.height=innerHeight*dpr}sz();addEventListener('resize',sz);
+  var cols=['#ffd166','#ff7aa8','#8fd3ff','#c9a7ff','#7bd88f','#ff9e5e'];
+  function burst(px,py,n){for(var i=0;i<n;i++){var a=Math.random()*6.283,v=(3+Math.random()*9)*dpr;parts.push({x:px*dpr,y:py*dpr,vx:Math.cos(a)*v,vy:Math.sin(a)*v-5*dpr,w:(5+Math.random()*6)*dpr,h:(3+Math.random()*4)*dpr,r:Math.random()*6,vr:(Math.random()-.5)*.3,col:cols[i%6],life:140+Math.random()*80})}if(!run){run=true;loop()}}
+  function loop(){x.clearRect(0,0,c.width,c.height);parts=parts.filter(function(p){return p.life>0&&p.y<c.height+40});parts.forEach(function(p){p.vy+=.22*dpr;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.globalAlpha=Math.min(1,p.life/40);x.fillStyle=p.col;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore()});if(parts.length)requestAnimationFrame(loop);else run=false}
+
+  // cake
+  var done=false;
+  document.getElementById('flame').onclick=function(){
+    if(done)return;done=true;this.classList.add('out');
+    burst(innerWidth/2,innerHeight*.5,140);
+    setTimeout(function(){burst(innerWidth*.2,innerHeight*.45,70);burst(innerWidth*.8,innerHeight*.45,70)},350);
+    var t='May every wish you just made come true \u2728',el=document.getElementById('wish'),i=0;
+    (function ty(){el.textContent=t.slice(0,++i);if(i<t.length)setTimeout(ty,45)})();
+    setTimeout(function(){go('s3')},4200);
+  };
+
+  // reasons
+  var rs=[["🌍", "You know how to make life easier for others, even if you don't realize how complicated mine feels."], ["😜", "You learn things so quickly, understand people so well, and somehow notice everything except the little things about me. 😂"], ["💪", "You have a strong personality and the courage to face life's challenges."], ["🧠", "You treat people with kindness, and that's one of the best things about you."], ["🎯", "You're focused, determined, and know how to handle things in your own way."], ["🫶", "You have a genuinely good heart, and your actions often speak louder than words."], ["🦋", "You have the ability to learn from experiences and become wiser with time."], ["❤️", "You're a genuinely nice guy with a strong personality, a sharp mind, and a heart worth appreciating."]];
+  var g=document.getElementById('grid');
+  rs.forEach(function(r){var d=document.createElement('div');d.className='fc';d.innerHTML='<div class="fi"><div class="f">'+r[0]+'</div><div class="b">'+r[1]+'</div></div>';d.onclick=function(){d.classList.toggle('flip')};g.appendChild(d)});
+
+  // coupons
+  var cp=["Free hugs, no refunds 🤗", "One free forehead kiss whenever your brain starts buffering 😚🧠", "Your choice, my complaints 🎬😂", "Unlimited food theft 🍟", "One personal hype session. You're the hottest man alive.", "10-minute massage, 2-minute effort 💆", "One day of royal treatment 👑", "One free \"Yes Bebs\"😘", "Unlimited annoying texts 📱", "One free anger management session, for me 😂", "Cuddles, even during my villain era 😈", "One free apology, even when you're guilty 🤡"];
+  var last=-1,cEl=document.getElementById('coupon');
+  document.getElementById('pull').onclick=function(){var n;do{n=Math.floor(Math.random()*cp.length)}while(n===last);last=n;cEl.textContent=cp[n];cEl.classList.add('pop');setTimeout(function(){cEl.classList.remove('pop')},400);var r=cEl.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,40)};
+
+  // game
+  var ar=document.getElementById('arena'),sc=0,tm=20,playing=false,iv1,iv2;
+  function spawn(){var h=document.createElement('div');h.className='h';h.textContent=['💗','💖','💘','💝'][Math.floor(Math.random()*4)];h.style.left=(Math.random()*85)+'%';h.style.animationDuration=(2+Math.random()*1.8)+'s';var hit=function(e){e.preventDefault();if(!playing)return;sc++;document.getElementById('sc').textContent=sc;var r=h.getBoundingClientRect();burst(r.left+16,r.top+16,8);h.remove()};h.addEventListener('pointerdown',hit);ar.appendChild(h);setTimeout(function(){h.remove()},4000)}
+  document.getElementById('start').onclick=function(){
+    if(playing)return;playing=true;sc=0;tm=20;document.getElementById('sc').textContent=0;document.getElementById('tm').textContent=20;document.getElementById('gmsg').textContent='';
+    iv1=setInterval(spawn,520);
+    iv2=setInterval(function(){tm--;document.getElementById('tm').textContent=tm;if(tm<=0){clearInterval(iv1);clearInterval(iv2);playing=false;ar.innerHTML='';
+      document.getElementById('gmsg').textContent=sc>=18?'Legendary! '+sc+' hearts. You already have mine though 😉':sc>=10?sc+' hearts, nice catch! Want to beat it?':sc+' hearts. Try again, I believe in you!';burst(innerWidth/2,innerHeight*.5,80)}},1000)};
+
+  // letter
+  var lt="Dear Muslim Uddin Babu,\nHappy Birthday, Handsome🎂💖.\n\nSometimes, I wonder how one person can become such an important part of another person's life. And then I think of you. Somehow, you've become a part of my happiness, my thoughts, my  prayers,And obviously my scars,My runner without any destination,😜\n\nI may not always find the perfect words to express what you mean to me, but I hope my love makes you feel valued, understood, and appreciated. You deserve a love that brings you peace, a life that makes you proud, and happiness that stays even on your hardest days.If I could give you one thing today, it would be the ability to see yourself through my eyes. Maybe then you'd understand just how special you are to me.\n\nOn your birthday, I pray that Allah protects you, guides you, blesses your efforts, and grants you everything that is good for you.\n\nThank you for being someone my heart holds so dearly.\n\nHappy Birthday, my handsome boy. No matter how many birthdays pass, I hope my love always finds a way to make you feel special.\n\nNow come here and collect your hugs & kisses Bebs🫣💋\n\nYour Sononono.";
+  var ld=false;
+  document.getElementById('env').onclick=function(){
+    if(ld)return;ld=true;document.getElementById('etop').textContent='💖';
+    var L=document.getElementById('letter');L.classList.add('open');
+    var el=document.getElementById('ltxt');el.style.whiteSpace='pre-wrap';var i=0;
+    (function ty(){el.textContent=lt.slice(0,++i);if(i<lt.length)setTimeout(ty,14)})();
+    burst(innerWidth/2,innerHeight*.4,120);
+  };
+})();
+</script>
+</body>
+</html>
